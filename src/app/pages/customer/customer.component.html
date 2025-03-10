@@ -1,0 +1,87 @@
+
+<button  class=" btn btn-success me-2 me-2 mb-2"(click)="onReload()">Reload</button>
+<button class=" btn btn-success me-2 mb-2" (click)="isFormtoggleVisible=!isFormtoggleVisible">AddCustomer</button>
+
+<ng-container *ngIf="isFormtoggleVisible">
+    <div class="row">
+        <div class="col-12">
+            <table class=" table table-bordered">
+                <thead>
+                    <tr>
+                        <th>SrNo</th>
+                        <th>Customer Name</th>
+                        <th>City</th>
+                        <th>Mobile no</th>
+                        <th>Email</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngIf="customerList.value()?.data as custmData" >
+                        @for (item of custmData; track $index) {
+                            <tr>
+                                <td>{{$index +1}}</td>
+                                <td>{{item.customerName}}</td>
+                                <td>{{item.customerCity}}</td>
+                                <td>{{item.mobileNo}}</td>
+                                <td>{{item.email}}</td>
+                                <td>
+                                    <h4 *ngIf="item.Status else temDeactive">Active</h4>
+                                </td>
+                            </tr>        
+                        }
+                    </ng-container>
+    
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</ng-container>
+<ng-container *ngIf="!isFormtoggleVisible">
+
+    <div class="row">
+        <div class="row">
+            <div class="col-6 mt-2">
+              <label>customerName</label>
+              <input type="text" [(ngModel)]="custmobj.customerName"  class="form-control" placeholder="Enter car image url" />
+            </div>
+            <div class="col-6 mt-2">
+              <label>City</label>
+              <input type="text" [(ngModel)]="custmobj.customerCity" class="form-control" placeholder="Enter brand name" />
+            </div>
+            <div class="col-6 mt-2">
+              <label>Mobile No</label>
+              <input type="text" [(ngModel)]="custmobj.mobileNo" class="form-control" placeholder="Enter model name" />
+            </div>
+            <div class="col-6 mt-2">
+              <label>Email</label>
+              <input type="text"  [(ngModel)]="custmobj.email" class="form-control" placeholder="Enter year" />
+            </div>
+            <!-- <div class="col-6 mt-2">
+                <label>Status</label>
+                <input type="text"  [(ngModel)]="custmobj.status" class="form-control" placeholder="Enter Status" />
+            </div> -->
+             <div class="row">
+                 <div class="col-6 mt-2">
+                <button class="btn btn-primary" (click)="onSave()">Save</button>
+              </div>
+             </div>
+          </div>
+          
+    </div>
+</ng-container>
+<!--we used in table of status column for 
+false condition it will sow de-active in red
+ color if any column will true then it will show
+  active from table this ng-tamplete is for deactive for active we can create other ng-template-->
+<ng-template #temDeactive>
+    <div class="text-danger">
+        <span>De-Active</span>
+    </div>
+</ng-template>
+
+
+
+
+
